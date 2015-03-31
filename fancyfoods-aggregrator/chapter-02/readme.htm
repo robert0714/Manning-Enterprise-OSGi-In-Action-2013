@@ -1,0 +1,32 @@
+Chapter 2
+
+This source code demonstrates setting up a simple Apache Aries sandbox, creating a web application, using fragments for internationalization, Blueprint services, and using a Blueprint-JNDI bridge to access those services from a web application.
+
+Setting Up a Runtime Environment
+
+Download the latest Apache Aries samples source. Everything here was tested with version 1.0.0
+Navigate to the blog/blog-assembly folder and run mvn install. This will prepare a sandbox in the target directory.
+To validate the assembly, change directory to target and run java -jar org.eclipse.osgi-3.7.0.v20110613.jar -console
+You should see an OSGi framework start up. If you type ss, you should see a list of bundles.
+A Simple OSGi Web Application
+
+Run mvn install in the chapter-02 directory to build the fancyfoods bundles.
+Create a directory called load in blog-assembly/target
+Copy the fancyfoods.api and fancyfoods.web bundles to the load directory from target
+Have a look at http://localhost:8080/fancyfoods.web/SayHello. You should see a message saying
+Hello valued customer!
+Fragments and Internationalization
+
+Change your browser's language to French
+Copy the fancyfoods.web.nls bundle to the load directory from target
+In the OSGi console, run refresh 43, where 43 is the number of the web bundle (ss lists all bundles)
+Visit http://localhost:8080/fancyfoods.web/SayHelloInternationalized. The page should display a message in French.
+Blueprint Dependency Injection and the JNDI-Blueprint Bridge
+
+Have a look at http://localhost:8080/fancyfoods.web/SayHelloJNDI. The page should say
+Hello valued customer!
+We have no special offers today. Try again tomorrow.
+Copy the fancyfoods.business and fancyfoods.department.chocolate bundles to the load directory from target
+Revisit http://localhost:8080/fancyfoods.web/SayHelloJNDI. The page should say
+Hello valued customer!
+Normal chocolates	6.99	A wonderful surprise for someone you want to impress.
