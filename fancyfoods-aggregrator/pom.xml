@@ -1,0 +1,68 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fancyfoods</groupId>
+	<artifactId>fancyfoods-aggregrator</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0</version>
+	<name>Fancy Foods Aggregator POM</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>fancyfoods</groupId>
+			<artifactId>fancyfoods.api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>fancyfoods</groupId>
+			<artifactId>fancyfoods.web</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>fancyfoods</groupId>
+			<artifactId>fancyfoods.business</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>fancyfoods</groupId>
+			<artifactId>fancyfoods.persistence</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>fancyfoods</groupId>
+			<artifactId>fancyfoods.department.cheese</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>fancyfoods</groupId>
+			<artifactId>fancyfoods.department.chocolate</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+
+    <modules>
+        <module>chapter-02/</module>
+        <module>chapter-03/</module>
+        <module>chapter-04/</module>
+        <module>chapter-06/</module>
+        <module>chapter-08/</module>
+        <module>chapter-10/</module>
+        <module>chapter-13/</module>
+    </modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.aries</groupId>
+				<artifactId>eba-maven-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<generateManifest>false</generateManifest>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+

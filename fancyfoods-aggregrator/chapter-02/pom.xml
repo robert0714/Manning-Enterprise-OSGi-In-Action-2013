@@ -1,0 +1,66 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fancyfoods</groupId>
+	<artifactId>fancyfoods-aggregrator</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0</version>
+	<name>Fancy Foods Aggregator POM</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>fancyfoods</groupId>
+			<artifactId>fancyfoods.api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>fancyfoods</groupId>
+			<artifactId>fancyfoods.web</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>fancyfoods</groupId>
+			<artifactId>fancyfoods.business</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>fancyfoods</groupId>
+			<artifactId>fancyfoods.department.chocolate</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+
+	<modules>
+		<module>fancyfoods.api</module>
+		<module>fancyfoods.business</module>
+		<module>fancyfoods.department.chocolate</module>
+		<module>fancyfoods.web</module>
+		
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<excludeTransitive>true</excludeTransitive>
+							<outputDirectory>${project.build.directory}</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+
+	</build>
+</project>
+
