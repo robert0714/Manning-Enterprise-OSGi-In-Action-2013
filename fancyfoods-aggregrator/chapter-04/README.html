@@ -1,0 +1,34 @@
+<html>
+<head>
+<style type="text/css">
+body {font-family:sans-serif;}
+pre {font-family:serif; font-weight:bold;}
+h2 {font-size:110%}
+
+</style>
+</head>
+<body>
+<h1>Chapter 4</h1><p>
+This source code demonstrates grouping bundles together into an application using Apache Aries EBAs (Enterprise Bundle Archives).
+</p>
+
+<p>The build scripts and instructions assume you have already run the chapter 2 and chapter 3 samples.</p>
+
+
+<h2>Building and Running an Application</h2>
+
+<ol>
+<li>Clear out all the fancyfoods bundles from the <code>load</code> directory
+<li>Check <a href="http://localhost:8080/fancyfoods.web/SayHelloJNDI">http://localhost:8080/fancyfoods.web/SayHelloJNDI</a> to verify nothing is running (you should see a 404 page).
+<li>Run <code>mvn install</code> in the <code>chapter-04</code> directory to build the fancyfoods application.</li>
+<li>Run
+<code>java -jar org.eclipse.osgi-3.7.0.v20110613.jar -console</code> from the <code>blog-assembly/load</code> directory
+</li>
+<li>Copy the <code>fancyfoods.application-1.0.0.eba</code> archive to the <code>blog-assembly/load</code> directory from <code>target</code>. Make sure to copy to the load directory <em>after</em> the framework is started, to work around an Aries bug.</li>
+<li>Have a look at <a href="http://localhost:8080/fancyfoods.web/SayHelloShopping">http://localhost:8080/fancyfoods.web/SayHelloShopping</a>. 
+Everything should work as it did before.
+</li>
+</ol>
+
+</body>
+</html>

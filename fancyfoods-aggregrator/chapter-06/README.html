@@ -1,0 +1,37 @@
+<html>
+<head>
+<style type="text/css">
+body {font-family:sans-serif;}
+pre {font-family:serif; font-weight:bold;}
+h2 {font-size:110%}
+
+</style>
+</head>
+<body>
+<h1>Chapter 6</h1><p>
+This source code allows you to experiment with more advanced Blueprint techniques, in particular
+using listeners to cache results.
+</p>
+
+<p>The build scripts and instructions assume you have already run the chapter 2 and chapter 3 samples.</p>
+
+
+<h2>Using JPA Persistence to Populate Special Offers from a Database</h2>
+
+<ol>
+<li>Run <code>mvn install</code> in the <code>chapter-03</code> directory to build the fancyfoods bundles.</li>
+<li>Clean out any existing bundles in the <code>blog-assembly/load</code> directory from <code>target</code></li>
+<li>Copy all the <code>fancyfoods.*</code> bundles to the <code>blog-assembly/load</code> directory from <code>target</code></li>
+<li>Run
+<code>java -jar org.eclipse.osgi-3.7.0.v20110613.jar -console</code> from the <code>blog-assembly/load</code> directory
+</li>
+<li>Explore <a href="http://localhost:8080/fancyfoods.web/SayHelloShopping">http://localhost:8080/fancyfoods.web/SayHelloShopping</a>. 
+Everything should work as it did before.
+</li>
+<li>Try stopping and start the chocolate and cheese bundles in the OSGi console. Their offers should appear and 
+disappear from <a href="http://localhost:8080/fancyfoods.web/SayHelloShopping">http://localhost:8080/fancyfoods.web/SayHelloShopping</a>
+as they did before, even though the underlying implementation caches the sorted list.
+</ol>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<html>
+<head>
+<style type="text/css">
+body {font-family:sans-serif;}
+pre {font-family:serif; font-weight:bold;}
+h2 {font-size:110%}
+
+</style>
+</head>
+<body>
+<h1>Chapter 10</h1><p>
+This source code demonstrates using remote services to scale the Fancy Foods application across multiple servers.
+</p>
+
+<p>The build scripts and instructions assume you have already run the chapter 2 and chapter 3 samples.</p>
+
+
+<h2>Exposing a Remote Service using the Apache CXF Remote Services implementation</h2>
+
+<ol>
+<li><em>Before building anything, </em> replace <code>localhost</code> in <code>ancyfoods.remote.config/src/main/resources/OSGI-INF/remote-service/remote-services.xml</code> with your
+computer's external IP address.</li>
+<li>Run <code>mvn install</code> in the <code>chapter-10</code> directory to build the fancyfoods bundles.</li>
+<li>If they're not already there, copy the <code>fancyfoods.api</code>, <code>fancyfoods.web</code>, <code>fancyfoods.business</code>, <code>fancyfoods.persistence</code> and <code>fancyfoods.datasource-1.0.0</code> bundles to the <code>blog-assembly/load</code> directory from <code>target</code></li>
+<li>Copy the <code>fancyfoods.department.foreign</code>bundle to the <code>blog-assembly/load</code> directory from <code>target</code></li>
+<li>Start the OSGi framework in <code>blog-assembly</code> and confirm that the <code>fancyfoods.department.foreign</code>
+bundle is exposing services.
+<li>Download the single-bundle distribution of Apache CXF, version 1.2, from <a href="http://www.apache.org/dist/cxf/dosgi/1.2/cxf-dosgi-ri-singlebundle-distribution-1.2.jar">http://www.apache.org/dist/cxf/dosgi/1.2/cxf-dosgi-ri-singlebundle-distribution-1.2.jar</a> and copy it to the <code>blog-assembly/load</code> directory (make sure
+the framework is started before you do this)
+<li>Have a look at <a href="http://[your-external-ip]:9000/fancyfoods/offers/SpecialOffer?wsdl">http://[your-external-ip]:9000/fancyfoods/offers/SpecialOffer?wsdl</a> and <a href="http://[your-external-ip]:9000/fancyfoods/offers/SpecialOffer/getDescription">http://[your-external-ip]:9000/fancyfoods/offers/SpecialOffer/getDescription</a>. You
+should see wsdl for the first URL, and the text description of the service for 
+the second URL.</li>
+</ol>
+
+<h2>Consuming a Remote Service using the Apache CXF Remote Services implementation</h2>
+
+<ol>
+<li>Prepare a clean copy of the whole blog assembly folder, and call it <code>blog-assembly-remote</code>
+<li>Copy all of the bundles from <code>chapter-03/target</code>code> to the <code>blog-assembly-remote/load</code>bundle to the <code>blog-assembly-remote/load</code> directory</li>
+<li>To avoid port conflicts between the OSGi framework and CXF, add the following properties to <code>configuration/config.ini</code>:
+<pre>
+jetty.port=8081
+org.osgi.service.http.port=8081
+</pre>
+<li>Start the OSGi framework in <code>blog-assembly-remote</code> and confirm that the <a href="http://localhost:8080/fancyfoods.web/SayHelloShopping">http://localhost:8080/fancyfoods.web/SayHelloShopping</a> shows a web page with chocolate and cheese special offers listed.
+<li>Copy the <code>cxf-dosgi-ri-singlebundle-distribution-1.2.jar</code> jar to the <code>load</code> directory and confirm that the Fancy Foods web app still works.
+<li>Copy the remote service configuration bundle from <code>chapter-10/target/fancyfoods.remote.config-1.0.0.jar</code> to the <code>load</code> directory of the <code>blog-assembly-remote</code> server
+<li>Access <a href="http://localhost:8080/fancyfoods.web/SayHelloShopping">http://localhost:8080/fancyfoods.web/SayHelloShopping</a>; there should be three special offers listed, including Foreign Borscht. 
+<li>If you see a Server Error instead, make sure that the server which exposes the foreign service 
+is running, and that you have updated the remote configuration in the <code>fancyfoods.remote.config</code>
+bundle as described above. (If you've restarted the bundle which exposes the remote service, 
+you may need to make sure it's started without the CXF bundle, and then add the CXF bundle second.) 
+
+</ol>
+
+<h2>Using an external database</h2>
+
+<ol>
+<li>To switch from an in-memory database to an external database, you can replace
+the code>fancyfoods.datasource-1.0.0.jar</code> bundle with the
+the <code>fancyfoods.datasource-2.0.0.jar</code> bundle from this chapter. </li>
+<li>You will also need
+to switch Derby implementations in the server and do some extra set-up, as described in the text.
+</li>
+
+<h2>Using SCA for remote services</h2>
+<ol>
+<li>The <code>fancyfoods.department.foreign.sca-1.0.0.jar</code> and
+<code>fancyfoods.remote.config.sca</code> are alternate implementations 
+of the remote service provider and consumer-configuration bundles designed
+to work with Apache Tuscany's SCA implementation.</li>
+<li>See the text for further instructions.
+
+</ol>
+</ol>
+</body>
+</html>

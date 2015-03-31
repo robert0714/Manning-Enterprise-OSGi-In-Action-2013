@@ -1,0 +1,28 @@
+<html>
+<head>
+<style type="text/css">
+body {font-family:sans-serif;}
+pre {font-family:serif; font-weight:bold;}
+h2 {font-size:110%}
+
+</style>
+</head>
+<body>
+<h1>Chapter 8</h1><p>
+This source code demonstrates various techniques for testing OSGi projects.
+</p>
+
+<p>The build scripts and instructions assume you have already run the chapter 2 and chapter 3 samples.</p>
+
+
+<h2>Pax-exam itests</h2>
+
+<ol>
+<li>Set an <code>ARIES_ASSEMBLY</code> environment variable pointing to the <code>blog-assembly</code> folder of the Apache Aries sandbox. For example,
+<pre>export ARIES_ASSEMBLY=~/aries/samples/blog/blog-assembly</pre>
+<li>Run <code>mvn install</code> in the <code>chapter-08/fancyfoods.department.cheese.itest</code> directory to build and run the pax-exam tests.</li>
+<li>The maven build should run tests and complete successfully
+</ol>
+
+</body>
+</html>

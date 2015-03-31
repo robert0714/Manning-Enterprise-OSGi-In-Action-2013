@@ -1,0 +1,64 @@
+<html>
+<head>
+<style type="text/css">
+body {font-family:sans-serif;}
+pre {font-family:serif; font-weight:bold;}
+h2 {font-size:110%}
+
+</style>
+</head>
+<body>
+<h1>Chapter 3</h1><p>
+This source code demonstrates using JPA persistence to read and write from a database, and using JTA transactions to cleanly handle any failures.
+</p>
+
+<p>The build scripts and instructions assume you have already run the chapter 2 samples.</p>
+
+
+<h2>Using JPA Persistence to Populate Special Offers from a Database</h2>
+
+<ol>
+<li>Run <code>mvn install</code> in the <code>chapter-03</code> directory to build the fancyfoods bundles.</li>
+<li>If they're not already there, copy the <code>fancyfoods.api</code>, <code>fancyfoods.web</code>, </code><code>fancyfoods.business</code>, and <code>fancyfoods.department.chocolate</code> bundles to the <code>blog-assembly/load</code> directory from <code>target</code></li>
+<li>Copy the <code>fancyfoods.datasource</code>, <code>fancyfoods.persistence</code>, and <code>fancyfoods.department.cheese</code> bundles to the <code>blog-assembly/load</code> directory from <code>target</code></li>
+<li>Run
+<code>java -jar org.eclipse.osgi-3.7.0.v20110613.jar -console</code> from the <code>blog-assembly/load</code> directory
+</li>
+<li>Have a look at <a href="http://localhost:8080/fancyfoods.web/SayHelloJNDI">http://localhost:8080/fancyfoods.web/SayHelloJNDI</a>. There should be two special offers, and the page should say <pre>Hello valued customer!
+Normal chocolates	6.99	A wonderful surprise for someone you want to impress.
+Wensleydale cheese	1.81	A wonderful surprise for someone cheesy.</pre>
+</li>
+</ol>
+<h2>Using JPA Persistence to Write To A Database</h2>
+
+<ol>
+<li>Visit <a href="http://localhost:8080/fancyfoods.web/SayHelloShopping">http://localhost:8080/fancyfoods.web/SayHelloShopping</a>. You should see the same chocolate and cheese offers, but with hyperlinks.
+<li>Click on the cheese link and buy two packs of Wensleydale. You should see a message like
+<pre>
+Holly is a new customer.
+There were 15 packs of Wensleydale cheese in stock.
+Holly tried to buy 2 packs of Wensleydale cheese
+Afterwards, Holly had a balance of -£3.62 and a credit limit of -£20.0
+And after? There were 13 packs of Wensleydale cheese in stock.</pre>
+</li>
+</ol>
+
+<h2>Preserving Transactional Integrity with JTA</h2>
+
+<ol>
+<li>Revisit <a href="http://localhost:8080/fancyfoods.web/SayHelloShopping">http://localhost:8080/fancyfoods.web/SayHelloShopping</a>. 
+</li>
+<li>Try and buy three boxes of chocolates instead. This will exceed your default
+credit limit, and the transaction should fail.
+You should see a transaction rollback exception in the console, and the stock
+level of the chocolates should stay unchanged. The web page should say
+<pre>
+Holly had a balance of -£3.62 and a credit limit of -£20.0
+There were 8 packs of Normal chocolates in stock.
+Holly tried to buy 3 packs of Normal chocolates
+A problem happened: £20.0 is not enough credit for a £24.59 purchase.
+And after? There were 8 packs of Normal chocolates in stock.</pre>
+</li>
+</ol>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<html>
+<head>
+<style type="text/css">
+body {font-family:sans-serif;}
+pre {font-family:serif; font-weight:bold;}
+h2 {font-size:110%}
+
+</style>
+</head>
+<body>
+<h1>Chapter 2</h1>
+<p>
+This source code demonstrates setting up a simple Apache Aries sandbox, creating a web application, using fragments for internationalization, Blueprint services, and using a Blueprint-JNDI bridge to access those services from a web application.
+</p>
+
+
+<h2>Setting Up a Runtime Environment</h2>
+
+<ol>
+
+<li>Download the latest <a href="http://aries.apache.org/downloads/currentrelease.html">Apache Aries samples source. Everything here was tested with version 1.0.0</a>
+</li>
+<li>Navigate to the blog/blog-assembly folder and run <code>mvn install</code>. This will prepare a sandbox in the 
+<code>target directory.</code></li>
+<li>To validate the assembly, change directory to <code>target</code> and run
+<code>java -jar org.eclipse.osgi-3.7.0.v20110613.jar -console</code>
+</li>
+<li>You should see an OSGi framework start up. If you type <code>ss</code>, you should see a list of 
+bundles.</li>
+</ol>
+
+<h2>A Simple OSGi Web Application</h2>
+
+<ol>
+<li>Run <code>mvn install</code> in  the <code>chapter-02</code> directory to build the fancyfoods bundles.</li>
+<li>Create a directory called <code>load</code> in <code>blog-assembly/target</code></li>
+<li>Copy the <code>fancyfoods.api</code> and <code>fancyfoods.web</code> bundles to the <code>load</code> directory from <code>target</code></li>
+<li>Have a look at <a href="http://localhost:8080/fancyfoods.web/SayHello">http://localhost:8080/fancyfoods.web/SayHello</a>. You should see a message saying <pre>Hello valued customer!</pre>
+</li>
+</ol>
+
+<h2>Fragments and Internationalization</h2>
+
+<ol>
+<li>Change your browser's language to French</li>
+<li>Copy the <code>fancyfoods.web.nls</code> bundle to the <code>load</code> directory from <code>target</code></li>
+<li>In the OSGi console, run <code>refresh 43</code>, where <code>43</code> is the number of the web bundle (<code>ss</code> lists all bundles)
+
+<li>Visit <a href="http://localhost:8080/fancyfoods.web/SayHelloInternationalized">http://localhost:8080/fancyfoods.web/SayHelloInternationalized</a>. The page should display a message in French.
+</li>
+</ol>
+
+<h2>Blueprint Dependency Injection and the JNDI-Blueprint Bridge</h2>
+
+<ol>
+<li>Have a look at <a href="http://localhost:8080/fancyfoods.web/SayHelloJNDI">http://localhost:8080/fancyfoods.web/SayHelloJNDI</a>. The page should say <pre>Hello valued customer!
+We have no special offers today. Try again tomorrow.</pre></li>
+<li>Copy the <code>fancyfoods.business</code> and <code>fancyfoods.department.chocolate</code> bundles to the <code>load</code> directory from <code>target</code></li>
+<li>Revisit <a href="http://localhost:8080/fancyfoods.web/SayHelloJNDI">http://localhost:8080/fancyfoods.web/SayHelloJNDI</a>. The page should say <pre>Hello valued customer!
+Normal chocolates	6.99	A wonderful surprise for someone you want to impress.</pre></li>
+</ol>
+</body>
+</html>
